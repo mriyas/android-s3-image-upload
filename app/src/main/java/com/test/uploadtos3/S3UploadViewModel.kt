@@ -26,11 +26,12 @@ class S3UploadViewModel(val mApplication: Application) : AndroidViewModel(mAppli
     private val TAG = javaClass.simpleName
 
     private companion object {
-        const val YOUR_ACCESS_KEY = "**************"
-        const val YOUR_SECRET_KEY = "*****************************"
-        val YOUR_REGION = Regions.AP_SOUTH_1.name
-        val END_POINT_URL = "https://s3-$YOUR_REGION.amazonaws.com/"
-        const val YOUR_BUCKET = "*******"
+        const val YOUR_ACCESS_KEY = "******"
+        const val YOUR_SECRET_KEY = "***************"
+        const val YOUR_BUCKET = "*********"
+        val YOUR_REGION = Regions.AP_SOUTH_1
+        const val YOUR_REGION_PATH = "ap-south-1"
+        const val END_POINT_URL = "https://s3-${YOUR_REGION_PATH}.amazonaws.com/"
 
 
     }
