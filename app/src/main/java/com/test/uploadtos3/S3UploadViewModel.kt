@@ -28,9 +28,9 @@ class S3UploadViewModel(val mApplication: Application) : AndroidViewModel(mAppli
     private companion object {
         const val YOUR_ACCESS_KEY = "**************"
         const val YOUR_SECRET_KEY = "*****************************"
-        val YOUR_REGION = Regions.AP_SOUTH_1
+        val YOUR_REGION = Regions.AP_SOUTH_1.name
         val END_POINT_URL = "https://s3-$YOUR_REGION.amazonaws.com/"
-        const val YOUR_MY_BUCKET = "*******"
+        const val YOUR_BUCKET = "*******"
 
 
     }
@@ -64,7 +64,7 @@ class S3UploadViewModel(val mApplication: Application) : AndroidViewModel(mAppli
         val access = CannedAccessControlList.Private
 
         val observer: TransferObserver =
-            mTransferUtility.upload(YOUR_MY_BUCKET, objectKey, file, access)
+            mTransferUtility.upload(YOUR_BUCKET, objectKey, file, access)
         Log.d("TAG ", "Trying to upload : " + observer.absoluteFilePath)
         observer.setTransferListener(object : TransferListener {
             override fun onStateChanged(id: Int, state: TransferState) {
@@ -72,13 +72,15 @@ class S3UploadViewModel(val mApplication: Application) : AndroidViewModel(mAppli
 
                 if (state == TransferState.COMPLETED) {
                     val url =
-                        "https://" + YOUR_MY_BUCKET + ".s3.amazonaws.com/" + observer.key
+                        "https://" + YOUR_REGION + ".s3.amazonaws.com/$YOUR_BUCKET/" + observer.key
+                    val url2 =
+                        "https://" + YOUR_REGION + ".s3.amazonaws.com/$YOUR_BUCKET/" + file.name
 
                     Log.i(
                         TAG,
-                        " onStateChanged() >> URL=${END_POINT_URL + YOUR_MY_BUCKET + file.name}.png"
+                        " onStateChanged() >> URL=$url.png"
                     )
-                    Log.d(TAG, " onStateChanged() >> URL=$url.png")
+                    Log.d(TAG, " onStateChanged() >> URL=$url2.png")
                 } else {
                     // do something
                     //  progress.hide()
